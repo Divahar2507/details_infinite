@@ -1,0 +1,5 @@
+{
+  "name": "Smart Employee Onboarding Form",
+  "description": "A feature-rich employee data collection system inspired by Google Forms, enhanced with Gemini AI for automated bio generation and data validation.",
+  "requestFramePermissions": []
+}
