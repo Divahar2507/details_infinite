@@ -27,5 +27,9 @@ export const EmployeeService = {
 
     deleteEmployee: async (id: string): Promise<void> => {
         await axios.delete(`${API_URL}/${id}`);
+    },
+
+    exportEmployees: () => {
+        window.open(`${API_URL}/export`, '_blank');
     }
 };

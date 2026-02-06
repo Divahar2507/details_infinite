@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { Employee } from '../types';
+import { EmployeeService } from '../services/employee.service';
 
 interface Props {
   employees: Employee[];
@@ -10,7 +11,7 @@ interface Props {
 export const EmployeeDirectory: React.FC<Props> = ({ employees, onDelete }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
-  const filtered = employees.filter(emp => 
+  const filtered = employees.filter(emp =>
     emp.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
     emp.jobTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
     emp.department.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -20,13 +21,22 @@ export const EmployeeDirectory: React.FC<Props> = ({ employees, onDelete }) => {
   return (
     <div className="space-y-8 max-w-5xl mx-auto">
       <div className="glass-panel p-8 rounded-[2rem] border-white/5 flex flex-col md:flex-row md:items-center justify-between gap-6">
-        <div>
-          <h2 className="text-3xl font-black text-white tracking-tight">Active Agents</h2>
-          <p className="text-gray-500 font-bold text-xs uppercase tracking-widest mt-1">Onboarding Registry: {employees.length} Records</p>
+        <div className="flex items-center justify-between grow">
+          <div>
+            <h2 className="text-3xl font-black text-white tracking-tight">Active Agents</h2>
+            <p className="text-gray-500 font-bold text-xs uppercase tracking-widest mt-1">Onboarding Registry: {employees.length} Records</p>
+          </div>
+          <button
+            onClick={() => EmployeeService.exportEmployees()}
+            className="px-6 py-3 bg-[#00B5B5]/10 border border-[#00B5B5]/30 text-[#00B5B5] text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-[#00B5B5]/20 transition-all flex items-center"
+          >
+            <i className="fas fa-file-excel mr-2"></i>
+            Export Registry
+          </button>
         </div>
         <div className="relative group">
           <i className="fas fa-search absolute left-5 top-1/2 -translate-y-1/2 text-[#00B5B5]/40 group-focus-within:text-[#00B5B5] transition-colors"></i>
-          <input 
+          <input
             type="text"
             placeholder="Search Network..."
             className="pl-14 pr-6 py-4 border border-white/5 bg-[#1A1A1C] text-white rounded-[1.5rem] focus:ring-1 focus:ring-[#00B5B5]/50 outline-none w-full md:w-80 transition-all font-medium"
@@ -57,7 +67,7 @@ export const EmployeeDirectory: React.FC<Props> = ({ employees, onDelete }) => {
                     <p className="text-gray-500 font-bold text-[10px] uppercase tracking-widest mt-0.5">{emp.department} Unit</p>
                   </div>
                 </div>
-                <button 
+                <button
                   onClick={() => onDelete(emp.id)}
                   className="w-10 h-10 rounded-xl bg-white/5 text-gray-500 hover:text-red-500 hover:bg-red-500/10 transition-all"
                 >
@@ -95,7 +105,7 @@ export const EmployeeDirectory: React.FC<Props> = ({ employees, onDelete }) => {
                   <SocialIcon href={emp.linkedIn} icon="fab fa-linkedin-in" />
                   <SocialIcon href={emp.leetCode} icon="fas fa-terminal" />
                   <SocialIcon href={emp.hackerRank} icon="fab fa-hackerrank" />
-                  
+
                   {emp.resumeName && (
                     <div className="ml-auto flex items-center space-x-2 text-[9px] font-black text-[#00B5B5] bg-[#00B5B5]/10 px-3 py-2 rounded-xl">
                       <i className="fas fa-file-invoice"></i>
@@ -112,7 +122,7 @@ export const EmployeeDirectory: React.FC<Props> = ({ employees, onDelete }) => {
   );
 };
 
-const SocialIcon: React.FC<{href?: string, icon: string}> = ({href, icon}) => (
+const SocialIcon: React.FC<{ href?: string, icon: string }> = ({ href, icon }) => (
   href ? (
     <a href={href} target="_blank" rel="noreferrer" className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-400 hover:text-[#00B5B5] hover:bg-[#00B5B5]/10 transition-all">
       <i className={`${icon} text-sm`}></i>

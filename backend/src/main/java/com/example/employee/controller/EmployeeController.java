@@ -82,4 +82,30 @@ public class EmployeeController {
         response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/export")
+    public void exportToCSV(jakarta.servlet.http.HttpServletResponse response) throws java.io.IOException {
+        response.setContentType("text/csv");
+        response.setHeader("Content-Disposition", "attachment; filename=employees_registry.csv");
+
+        List<Employee> employees = employeeRepository.findAll();
+
+        java.io.PrintWriter writer = response.getWriter();
+        writer.println("FullName,Email,Phone,Department,JobTitle,College,Degree,GraduationYear,LinkedIn,SubmittedAt");
+
+        for (Employee emp : employees) {
+            writer.println(String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",
+                    emp.getFullName(),
+                    emp.getEmail(),
+                    emp.getPhone(),
+                    emp.getDepartment(),
+                    emp.getJobTitle(),
+                    emp.getCollege(),
+                    emp.getDegree(),
+                    emp.getGraduationYear(),
+                    emp.getLinkedIn(),
+                    emp.getSubmittedAt()));
+        }
+        writer.close();
+    }
 }
