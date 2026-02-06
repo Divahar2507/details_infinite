@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { Employee } from '../types';
 
-const API_URL = 'http://localhost:8080/api/employees';
+const API_URL = `http://${window.location.hostname}:8080/api/employees`;
 
 export const EmployeeService = {
     getAllEmployees: async (): Promise<Employee[]> => {
