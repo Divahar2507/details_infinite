@@ -1,12 +1,26 @@
 
 import React, { useState, useEffect } from 'react';
+import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import { EmployeeForm } from './components/EmployeeForm';
+import { EmployeeDirectory } from './components/EmployeeDirectory';
 import { Employee } from './types';
 import { EmployeeService } from './services/employee.service';
 
 const App: React.FC = () => {
   const [employees, setEmployees] = useState<Employee[]>([]);
+  const location = useLocation();
   const [submitted, setSubmitted] = useState(false);
+
+  const handleDeleteEmployee = async (id: string) => {
+    if (window.confirm('Are you sure you want to delete this record?')) {
+      try {
+        await EmployeeService.deleteEmployee(id);
+        setEmployees(employees.filter(e => e.id !== id));
+      } catch (error) {
+        console.error("Failed to delete employee", error);
+      }
+    }
+  };
 
   useEffect(() => {
     fetchEmployees();
@@ -52,33 +66,67 @@ const App: React.FC = () => {
               <p className="text-[8px] sm:text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-1">Data Deployment Terminal</p>
             </div>
           </div>
-          <div className="hidden sm:block">
-            <span className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em]">Status: Operational</span>
+          <div className="hidden sm:flex items-center space-x-1">
+            <Link
+              to="/"
+              className={`px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-widest transition-all ${location.pathname === '/'
+                  ? 'bg-[#00B5B5]/10 text-[#00B5B5] border border-[#00B5B5]/20'
+                  : 'text-gray-500 hover:text-white hover:bg-white/5'
+                }`}
+            >
+              Onboarding
+            </Link>
+            <Link
+              to="/directory"
+              className={`px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-widest transition-all ${location.pathname === '/directory'
+                  ? 'bg-[#00B5B5]/10 text-[#00B5B5] border border-[#00B5B5]/20'
+                  : 'text-gray-500 hover:text-white hover:bg-white/5'
+                }`}
+            >
+              Directory
+            </Link>
+            <div className="ml-4 pl-4 border-l border-white/10">
+              <span className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em]">Status: Operational</span>
+            </div>
           </div>
         </div>
       </header>
 
-      <main className="flex-grow flex items-center justify-center p-4 sm:p-6">
-        <div className="w-full max-w-3xl transition-all duration-500">
-          {!submitted ? (
-            <EmployeeForm onSubmit={handleFormSubmit} />
-          ) : (
-            <div className="glass-panel p-10 sm:p-20 rounded-[2.5rem] text-center space-y-8 animate-fadeIn">
-              <div className="w-20 h-20 sm:w-24 sm:h-24 bg-[#00B5B5]/10 rounded-[2rem] border border-[#00B5B5]/30 flex items-center justify-center text-[#00B5B5] text-4xl mx-auto shadow-lg shadow-[#00B5B5]/10">
-                <i className="fas fa-check-double"></i>
+      <main className="flex-grow flex flex-col items-center justify-start p-4 sm:p-6 w-full">
+        <div className="w-full max-w-7xl transition-all duration-500">
+          <Routes>
+            <Route path="/" element={
+              <div className="max-w-3xl mx-auto">
+                {!submitted ? (
+                  <EmployeeForm onSubmit={handleFormSubmit} />
+                ) : (
+                  <div className="glass-panel p-10 sm:p-20 rounded-[2.5rem] text-center space-y-8 animate-fadeIn">
+                    <div className="w-20 h-20 sm:w-24 sm:h-24 bg-[#00B5B5]/10 rounded-[2rem] border border-[#00B5B5]/30 flex items-center justify-center text-[#00B5B5] text-4xl mx-auto shadow-lg shadow-[#00B5B5]/10">
+                      <i className="fas fa-check-double"></i>
+                    </div>
+                    <div className="space-y-4">
+                      <h2 className="text-3xl sm:text-4xl font-black text-white">Protocol Complete</h2>
+                      <p className="text-gray-500 font-medium max-w-sm mx-auto">Your identity has been successfully synchronized with the Infinite Tech AI network.</p>
+                    </div>
+                    <button
+                      onClick={() => setSubmitted(false)}
+                      className="px-10 py-4 bg-[#1A1A1C] border border-white/5 text-[#00B5B5] text-xs font-black uppercase tracking-widest rounded-2xl hover:bg-[#00B5B5]/10 transition-all"
+                    >
+                      New Onboarding Entry
+                    </button>
+                    <div className="pt-4">
+                      <Link to="/directory" className="text-gray-500 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors">
+                        View Directory &rarr;
+                      </Link>
+                    </div>
+                  </div>
+                )}
               </div>
-              <div className="space-y-4">
-                <h2 className="text-3xl sm:text-4xl font-black text-white">Protocol Complete</h2>
-                <p className="text-gray-500 font-medium max-w-sm mx-auto">Your identity has been successfully synchronized with the Infinite Tech AI network.</p>
-              </div>
-              <button
-                onClick={() => setSubmitted(false)}
-                className="px-10 py-4 bg-[#1A1A1C] border border-white/5 text-[#00B5B5] text-xs font-black uppercase tracking-widest rounded-2xl hover:bg-[#00B5B5]/10 transition-all"
-              >
-                New Onboarding Entry
-              </button>
-            </div>
-          )}
+            } />
+            <Route path="/directory" element={
+              <EmployeeDirectory employees={employees} onDelete={handleDeleteEmployee} />
+            } />
+          </Routes>
         </div>
       </main>
 
