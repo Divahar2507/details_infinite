@@ -39,7 +39,7 @@ export const EmployeeDirectory: React.FC<Props> = ({ employees, onDelete }) => {
           <input
             type="text"
             placeholder="Search Network..."
-            className="pl-14 pr-6 py-4 border border-white/5 bg-[#1A1A1C] text-white rounded-[1.5rem] focus:ring-1 focus:ring-[#00B5B5]/50 outline-none w-full md:w-80 transition-all font-medium"
+            className="pl-14 pr-6 py-4 border border-white/5 bg-[#051A15] text-white rounded-[1.5rem] focus:ring-1 focus:ring-[#00B5B5]/50 outline-none w-full md:w-80 transition-all font-medium"
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
           />
@@ -58,7 +58,7 @@ export const EmployeeDirectory: React.FC<Props> = ({ employees, onDelete }) => {
             <div key={emp.id} className="glass-panel p-8 rounded-[2rem] hover:border-[#00B5B5]/40 transition-all group relative animate-fadeIn">
               <div className="flex items-start justify-between mb-8">
                 <div className="flex items-center space-x-5">
-                  <div className="h-20 w-20 rounded-[1.5rem] bg-gradient-to-br from-[#1A1A1C] to-black border border-white/10 flex items-center justify-center text-[#00B5B5] text-3xl font-black shadow-inner">
+                  <div className="h-20 w-20 rounded-[1.5rem] bg-gradient-to-br from-[#051A15] to-black border border-white/10 flex items-center justify-center text-[#00B5B5] text-3xl font-black shadow-inner">
                     {emp.fullName.charAt(0)}
                   </div>
                   <div>

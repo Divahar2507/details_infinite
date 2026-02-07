@@ -20,7 +20,7 @@
     }
 
     .glass-panel {
-        background: rgba(26, 26, 28, 0.6);
+        background: rgba(2, 25, 20, 0.6);
         backdrop-filter: blur(12px);
         border: 1px solid rgba(255, 255, 255, 0.05);
     }

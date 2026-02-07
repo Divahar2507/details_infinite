@@ -124,7 +124,7 @@ export const EmployeeForm: React.FC<Props> = ({ onSubmit }) => {
 
   const renderInput = () => {
     // Reduced padding from p-5/p-6 to p-3/p-4 to make it smaller
-    const commonClasses = "w-full p-3 sm:p-4 bg-[#1A1A1C] border border-white/5 rounded-xl sm:rounded-2xl focus:border-[#00B5B5]/50 outline-none text-white transition-all";
+    const commonClasses = "w-full p-3 sm:p-4 bg-[#051A15] border border-white/5 rounded-xl sm:rounded-2xl focus:border-[#00B5B5]/50 outline-none text-white transition-all";
 
     switch (step.type) {
       case 'textarea':
@@ -171,7 +171,7 @@ export const EmployeeForm: React.FC<Props> = ({ onSubmit }) => {
               const file = e.target.files?.[0];
               if (file) setFormData({ ...formData, resumeName: file.name });
             }} />
-            <div className="w-12 h-12 bg-[#1A1A1C] rounded-[1rem] flex items-center justify-center text-[#00B5B5] mb-3 shadow-xl">
+            <div className="w-12 h-12 bg-[#051A15] rounded-[1rem] flex items-center justify-center text-[#00B5B5] mb-3 shadow-xl">
               <i className="fas fa-cloud-arrow-up text-xl"></i>
             </div>
             <h3 className="text-sm sm:text-base font-bold text-white mb-1">{formData.resumeName || "Deploy CV / Resume"}</h3>

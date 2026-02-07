@@ -50,9 +50,9 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0A0B] flex flex-col">
+    <div className="min-h-screen bg-[#02120e] flex flex-col">
       {/* Branding Header */}
-      <header className="w-full border-b border-white/5 bg-[#0A0A0B]/80 backdrop-blur-md py-4 sm:py-6 px-6 sticky top-0 z-50">
+      <header className="w-full border-b border-white/5 bg-[#02120e]/80 backdrop-blur-md py-4 sm:py-6 px-6 sticky top-0 z-50">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="relative">
@@ -70,8 +70,8 @@ const App: React.FC = () => {
             <Link
               to="/"
               className={`px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-widest transition-all ${location.pathname === '/'
-                  ? 'bg-[#00B5B5]/10 text-[#00B5B5] border border-[#00B5B5]/20'
-                  : 'text-gray-500 hover:text-white hover:bg-white/5'
+                ? 'bg-[#00B5B5]/10 text-[#00B5B5] border border-[#00B5B5]/20'
+                : 'text-gray-500 hover:text-white hover:bg-white/5'
                 }`}
             >
               Onboarding
@@ -79,8 +79,8 @@ const App: React.FC = () => {
             <Link
               to="/directory"
               className={`px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-widest transition-all ${location.pathname === '/directory'
-                  ? 'bg-[#00B5B5]/10 text-[#00B5B5] border border-[#00B5B5]/20'
-                  : 'text-gray-500 hover:text-white hover:bg-white/5'
+                ? 'bg-[#00B5B5]/10 text-[#00B5B5] border border-[#00B5B5]/20'
+                : 'text-gray-500 hover:text-white hover:bg-white/5'
                 }`}
             >
               Directory
@@ -110,7 +110,7 @@ const App: React.FC = () => {
                     </div>
                     <button
                       onClick={() => setSubmitted(false)}
-                      className="px-10 py-4 bg-[#1A1A1C] border border-white/5 text-[#00B5B5] text-xs font-black uppercase tracking-widest rounded-2xl hover:bg-[#00B5B5]/10 transition-all"
+                      className="px-10 py-4 bg-[#051A15] border border-white/5 text-[#00B5B5] text-xs font-black uppercase tracking-widest rounded-2xl hover:bg-[#00B5B5]/10 transition-all"
                     >
                       New Onboarding Entry
                     </button>
