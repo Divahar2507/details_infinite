@@ -98,7 +98,10 @@ export const EmployeeForm: React.FC<Props> = ({ onSubmit }) => {
     const skillsArray = formData.skills.split(',').map((s: string) => s.trim()).filter(Boolean);
     const employee: Employee = {
       ...formData,
-      id: crypto.randomUUID(),
+      id: crypto.randomUUID ? crypto.randomUUID() : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      }),
       skills: skillsArray,
       submittedAt: new Date().toISOString()
     };
